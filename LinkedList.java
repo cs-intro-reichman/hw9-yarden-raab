@@ -236,6 +236,9 @@ public class LinkedList {
 				last = current;
 			}
 		}
+		if (size == 1) {
+			last = first;
+		}
 	}
 
 	/**
