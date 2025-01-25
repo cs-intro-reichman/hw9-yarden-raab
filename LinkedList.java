@@ -157,7 +157,7 @@ public class LinkedList {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
-		if (first == null) {
+		if (size == 0) {
 			return null;
 		}
 		return getNode(index).block;
