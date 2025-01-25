@@ -58,8 +58,30 @@ public class MemorySpace {
 	 * @return the base address of the allocated block, or -1 if unable to allocate
 	 */
 	public int malloc(int length) {		
-		//// Replace the following statement with your code
-		return -1;
+		int index = -1;
+		for (int i=0; i<freeList.getSize(); i++) {
+			if (freeList.getBlock(i).length >= length) {
+				index = i;
+				break;
+			}
+		}
+		if (index == -1) {
+			return -1;
+		}
+		//1
+		MemoryBlock newBlock = new MemoryBlock (freeList.getBlock(index).baseAddress, length);
+		//2 
+		allocatedList.addLast(newBlock);
+		//3
+		if (freeList.getBlock(index).length == length) {
+			freeList.remove(index);
+		}
+		else {
+			freeList.getBlock(index).baseAddress += length;
+			freeList.getBlock(index).length -= length;
+		}
+		//4
+		return newBlock.baseAddress;
 	}
 
 	/**
@@ -71,7 +93,18 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
-		//// Write your code here
+		int index = -1;
+		for (int i=0; i<allocatedList.getSize(); i++) {
+			if (allocatedList.getBlock(i).baseAddress >= address) {
+				index = i;
+				break;
+			}
+		}
+		if (index == -1) {
+			return;
+		}
+		freeList.addLast(allocatedList.getBlock(index));
+		allocatedList.remove(index);
 	}
 	
 	/**
@@ -88,6 +121,36 @@ public class MemorySpace {
 	 * In this implementation Malloc does not call defrag.
 	 */
 	public void defrag() {
-		//// Write your code here
+		boolean noMore = false;
+		while (!noMore) {
+			noMore = true;
+			for (int i=0; i<freeList.getSize(); i++) {
+				int index = blockDefrag(i);
+				if (index != -1) {
+					unites(freeList.getBlock(i), freeList.getBlock(index));
+					noMore = false;
+				}
+			}
+		}
+	}
+	//Checks if there is a block whose address are equal to this address and length
+	//get the index of this blocke and return the index of the other block
+	// if thre is not Suitable block return -1
+	public int blockDefrag (int thisI) {
+		int sum = freeList.getBlock(thisI).baseAddress + freeList.getBlock(thisI).length;
+		for (int i=0; i<freeList.getSize(); i++) {
+			if (i != thisI) {
+				int address = freeList.getBlock(i).baseAddress;
+				if (sum == address) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+	// Unites the appropriate blocks
+	public void unites (MemoryBlock base, MemoryBlock remove) {
+		base.length += remove.length;
+		freeList.remove(remove);
 	}
 }
