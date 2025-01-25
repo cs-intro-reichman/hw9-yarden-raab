@@ -81,6 +81,7 @@ public class LinkedList {
 	 *         if index is negative or greater than the list's size
 	 */
 	public void add(int index, MemoryBlock block) {
+		System.out.println(" add" + index);
 		if (index < 0 || index > size) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
@@ -200,6 +201,7 @@ public class LinkedList {
 	 *         if index is negative or greater than or equal to size
 	 */
 	public boolean remove(int index) {
+		System.out.println(" remove" + index);
 		if (index < 0 || index >= size || size == 0) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
