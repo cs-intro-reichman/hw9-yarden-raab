@@ -189,19 +189,33 @@ public class LinkedList {
 			throw new IllegalArgumentException(
 					"null pointer exception");
 		}
-		if (size != 0) {
+		if (first != null) {
 			if (node == first) {
-				first =first.next;
+				first = first.next;
 				if (first == null) {
 					last = null;
 				}
 			}
 			else if (node == last) {
-				Node current = first;
-				while (current != null && current.next != null) {
-					current = current.next;
+				Node temp = first;
+				while (temp != null && temp.next != last) {
+					temp = temp.next;
+				}
+				if (temp != null) {
+					temp.next = null;
+				}
+				last = temp;
+			}
+			else {
+				Node temp = first;
+				while (temp != null && temp.next != node) {
+					temp = temp.next;
+				}
+				if (temp != null) {
+					temp.next = node.next;
 				}
 			}
+			size --;
 		}
 	}
 
