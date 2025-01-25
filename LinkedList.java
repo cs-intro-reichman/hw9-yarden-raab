@@ -246,7 +246,7 @@ public class LinkedList {
 	public void remove(MemoryBlock block) {
 		if (indexOf(block) == -1) {
 			throw new IllegalArgumentException(
-					"block is not in the list");
+					"index must be between 0 and size");
 		}
 		int index = indexOf(block);
 		remove(index);
