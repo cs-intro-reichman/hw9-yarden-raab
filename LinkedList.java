@@ -88,7 +88,7 @@ public class LinkedList {
 		if (index == 0) {
 			addFirst(block);
 		}
-		if (index == size) {
+		else if (index == size) {
 			addLast(block);
 		}
 		else {
