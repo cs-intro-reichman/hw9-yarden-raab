@@ -213,7 +213,7 @@ public class LinkedList {
 	 *         if index is negative or greater than or equal to size
 	 */
 	public void remove(int index) {
-		System.out.println(" remove" + index);
+		System.out.println(" remove. index: " + index + " ,size: " + size);
 		if (index < 0 || index >= size || size == 0) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
