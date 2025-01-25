@@ -187,7 +187,7 @@ public class LinkedList {
 	public void remove(Node node) {
 		if (node == null) {
 			throw new IllegalArgumentException(
-					"NullPointerException!");
+					" NullPointerException!");
 		}
 		if (first != null) {
 			if (node == first) {
@@ -227,32 +227,13 @@ public class LinkedList {
 	 *         if index is negative or greater than or equal to size
 	 */
 	public void remove(int index) {
-		System.out.println(" remove. index: " + index + " ,size: " + size);
-		if (index < 0 || index >= size || size == 0) {
+		//System.out.println(" remove. index: " + index + " ,size: " + size);
+		if (index < 0 || index >= size) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
-		if (index == 0) {
-			first = first.next;
-			size--;
-			if (size == 0) {
-				last = null;
-			}
-		}
-		else {
-			Node current = first;
-			for (int i=0; i<index - 1; i++) {
-				current = current.next;
-			}
-			current.next = current.next.next;
-			size--;
-			if (index == size-1) {
-				last = current;
-			}
-		}
-		if (size == 1) {
-			last = first;
-		}
+		Node node = getNode(index);
+		remove(node);
 	}
 
 	/**
