@@ -199,8 +199,8 @@ public class LinkedList {
 	 * @throws IllegalArgumentException
 	 *         if index is negative or greater than or equal to size
 	 */
-	public void remove(int index) {
-		if (index < 0 || index > size) {
+	public boolean remove(int index) {
+		if (index < 0 || index >= size || size == 0) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
@@ -219,6 +219,7 @@ public class LinkedList {
 				last = current;
 			}
 		}
+		return true;
 	}
 
 	/**
