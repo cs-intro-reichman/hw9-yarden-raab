@@ -93,9 +93,13 @@ public class MemorySpace {
 	 *            the starting address of the block to freeList
 	 */
 	public void free(int address) {
+		if (freeList.getSize() == 0) {
+			throw new IllegalArgumentException(
+					"index must be between 0 and size");
+		}
 		int index = -1;
 		for (int i=0; i<allocatedList.getSize(); i++) {
-			if (allocatedList.getBlock(i).baseAddress >= address) {
+			if (allocatedList.getBlock(i).baseAddress == address) {
 				index = i;
 				break;
 			}
